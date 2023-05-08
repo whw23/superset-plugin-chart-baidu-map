@@ -21,6 +21,8 @@ import buildQuery from './buildQuery';
 import controlPanel from './controlPanel';
 import transformProps from './transformProps';
 import thumbnail from '../images/thumbnail.png';
+import example1 from '../images/tmpview.png';
+import example2 from '../images/tmpview2.png';
 
 export default class SupersetPluginChartBaiduMap extends ChartPlugin {
   /**
@@ -38,7 +40,20 @@ export default class SupersetPluginChartBaiduMap extends ChartPlugin {
       category: t('Map'),
       description: 'Superset Plugin Chart Baidu Map',
       name: t('Baidu')+t('Map'),
+      tags: [
+        t('2D'),
+        t('Aesthetic'),
+        t('Comparison'),
+        t('Intensity'),
+        t('Legacy'),
+        t('Multi-Dimensions'),
+        t('Multi-Layers'),
+        t('Multi-Variables'),
+        t('Scatter'),
+        t('Popular'),
+      ],
       thumbnail,
+      exampleGallery: [{ url: example1 }, { url: example2 }],
     });
 
     super({

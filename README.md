@@ -2,8 +2,8 @@
 
 This is the Superset Plugin Chart Baidu Map Superset Chart Plugin.
 ### view
-![picture](imageForReadme/tmpview.png)
-![picture](imageForReadme/tmpview2.png)
+![picture](src/images/tmpview.png)
+![picture](src/images/tmpview2.png)
 ### Usage
 
 To build the plugin, run the following commands:
