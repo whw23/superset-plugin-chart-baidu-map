@@ -41,3 +41,15 @@ npm run dev-server
 
 ### view
 ![picture](tmpview.png)
+
+### baidu map api
+1. /app/superset/templates/tail_js_custom_extra.html\
+add
+```
+<script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=YOUR_API_KEY"></script>
+```
+You should restart superset or restart the docker of your superset.
+
+2. [ak](https://lbsyun.baidu.com/) is your baidu map api. 
+
+Please select the application type（应用类别） as "browser-side"（浏览器端）.
