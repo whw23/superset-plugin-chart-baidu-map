@@ -109,7 +109,3 @@ dist
 # build
 esm
 lib
-
-# github
-.github/
-/.github
