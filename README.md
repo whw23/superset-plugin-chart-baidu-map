@@ -1,7 +1,9 @@
 # superset-plugin-chart-baidu-map
 
 This is the Superset Plugin Chart Baidu Map Superset Chart Plugin.
-
+### view
+![picture](imageForReadme/tmpview.png)
+![picture](imageForReadme/tmpview2.png)
 ### Usage
 
 To build the plugin, run the following commands:
@@ -53,9 +55,6 @@ e.g. Or you can rebuild superset:
 npm run build
 ```
 If you rebuild superset, please restart superset or restart the docker of your superset.
-
-### view
-![picture](tmpview.png)
 
 ### baidu map api
 1. /app/superset/templates/tail_js_custom_extra.html\
