@@ -93,7 +93,7 @@ export default function SupersetPluginChartBaiduMap(props: SupersetPluginChartBa
           symbolSize: symbolSize,
           data: convertData(data, situationColumn, lonColumn, latColumn),
           encode: {
-            value: 2
+            value: 3
           },
           symbol: convertSymbol(useIcon, lienSvg, defaultIcon),
           color: (useIcon === 1) ? `rgba(${defaultIconColor.r},${defaultIconColor.g},${defaultIconColor.b},${defaultIconColor.a})` : '',
