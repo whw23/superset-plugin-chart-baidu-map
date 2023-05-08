@@ -286,9 +286,9 @@ const config: ControlPanelConfig = {
               label: t('默认图标颜色'),
               renderTrigger: true,
               description: t('默认图标颜色'),
-              visibility: ({ controls }: ControlPanelsContainerProps) => {
-                return controls?.use_icon?.value === 1
-              }
+              // visibility: ({ controls }: ControlPanelsContainerProps) => {
+              //   return controls?.use_icon?.value === 1
+              // }
             },
           },
         ],
@@ -318,6 +318,32 @@ const config: ControlPanelConfig = {
               description: t('图标大小'),
               min: 1,
               max: 100,
+            },
+          },
+        ],
+        [
+          {
+            name: 'use_pie',
+            config: {
+              type: 'CheckboxControl',
+              label: t('是否使用饼图'),
+              renderTrigger: true,
+              default: true,
+              description: t('选中表示使用饼图,修改选择后需保存并刷新'),
+            },
+          },
+        ],
+        [
+          {
+            name: 'pie_size',
+            config: {
+              type: 'SliderControl',
+              default: 15,
+              renderTrigger: true,
+              label: t('饼图大小'),
+              description: t('饼图大小'),
+              min: 1,
+              max: 30,
             },
           },
         ],

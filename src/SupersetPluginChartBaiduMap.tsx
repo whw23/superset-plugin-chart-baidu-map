@@ -38,6 +38,7 @@ export default function SupersetPluginChartBaiduMap(props: SupersetPluginChartBa
     centerLon, centerLat,
     useIcon, lienSvg, symbolSize, defaultIcon, defaultIconColor,
     data, lonColumn, latColumn, situationColumn, adresseColumn, metrics,
+    usePie, pieSize,
   } = props;
   const rootElem = createRef<HTMLDivElement>();
 
@@ -50,30 +51,71 @@ export default function SupersetPluginChartBaiduMap(props: SupersetPluginChartBa
 
   console.log('Plugin props', props);
   console.log('data', convertData(data, situationColumn, lonColumn, latColumn, adresseColumn, metrics))
+  console.log('data[i][metrics]', metrics.map((t: string) => (data[0][t])))
 
-  const getOption = () => {
+  function randomPieSeries(
+    center: any,
+    value: any,
+  ): echarts.PieSeriesOption {
+    var data = metrics.map((t: string, i: number) => ({
+      value: value[i],
+      name: t
+    }));
+    return {
+      type: 'pie',
+      coordinateSystem: 'bmap',
+      tooltip: {
+        formatter: '{b}: {c} ({d}%)'
+      },
+      label: {
+        show: false
+      },
+      labelLine: {
+        show: false
+      },
+      radius: [symbolSize / 2, usePie ? symbolSize / 2 + pieSize : symbolSize / 2],
+      center,
+      data: data,
+    };
+  }
+
+  function getSeries(): any {
+    var res = []
+    if (usePie) {
+      for (var i = 0; i < data.length; i++) {
+        res.push(
+          randomPieSeries([data[i][lonColumn], data[i][latColumn]], metrics.map((t: string) => (data[0][t])))
+        );
+      }
+    }
+    res.push({
+      type: 'scatter',
+      coordinateSystem: 'bmap',
+      symbolSize: symbolSize,
+      data: convertData(data, situationColumn, lonColumn, latColumn, adresseColumn, metrics),
+      dimensions: [{ name: '经度' }, { name: '纬度' }, { name: '地址' }].concat(metrics),
+      encode: {
+        tooltip: ['经度', '纬度', '地址'].concat(metrics),
+      },
+      symbol: convertSymbol(useIcon, lienSvg, defaultIcon),
+      color: `rgba(${defaultIconColor.r},${defaultIconColor.g},${defaultIconColor.b},${defaultIconColor.a})`,
+    })
+    return res
+  }
+
+  const getOptionScatter = () => {
     return {
       bmap: {
         center: [centerLon, centerLat],
         zoom: initZoom,
         roam: enableZoom,
       },
-      series: [
-        {
-          type: 'scatter',
-          coordinateSystem: 'bmap',
-          symbolSize: symbolSize,
-          data: convertData(data, situationColumn, lonColumn, latColumn, adresseColumn, metrics),
-          dimensions: [{ name: '经度' }, { name: '纬度' }, { name: '地址' }].concat(metrics),
-          encode: {
-            tooltip: ['经度', '纬度', '地址'].concat(metrics),
-          },
-          symbol: convertSymbol(useIcon, lienSvg, defaultIcon),
-          color: (useIcon === 1) ? `rgba(${defaultIconColor.r},${defaultIconColor.g},${defaultIconColor.b},${defaultIconColor.a})` : '',
-        }
-      ],
+      series: getSeries(),
       tooltip: {
         trigger: 'item',
+      },
+      legend: {
+        show: usePie,
       },
     }
   }
@@ -81,7 +123,7 @@ export default function SupersetPluginChartBaiduMap(props: SupersetPluginChartBa
   return (
     <Styles ref={rootElem} >
       <ReactEcharts
-        option={getOption()}
+        option={getOptionScatter()}
         style={{ height: height, width: width }}
         echarts={echarts}
       />

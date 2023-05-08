@@ -64,6 +64,8 @@ export default function transformProps(chartProps: ChartProps) {
     situationColumn,
     adresseColumn,
     metrics,
+    usePie,
+    pieSize,
   } = formData;
   const data = queriesData[0].data as TimeseriesDataRecord[];
 
@@ -88,5 +90,7 @@ export default function transformProps(chartProps: ChartProps) {
     situationColumn,
     adresseColumn,
     metrics,
+    usePie,
+    pieSize,
   };
 }

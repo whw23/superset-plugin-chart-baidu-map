@@ -40,6 +40,8 @@ describe('SupersetPluginChartBaiduMap transformProps', () => {
     situationColumn: 'string',
     adresseColumn: 'string',
     metrics: 'metrics',
+    usePie: true,
+    pieSize: 10,
   };
   const chartProps = new ChartProps({
     formData,
@@ -69,6 +71,8 @@ describe('SupersetPluginChartBaiduMap transformProps', () => {
       situationColumn: 'string',
       adresseColumn: 'string',
       metrics: 'metrics',
+      usePie: true,
+      pieSize: 10,
     });
   });
 });

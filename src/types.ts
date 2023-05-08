@@ -39,6 +39,8 @@ interface SupersetPluginChartBaiduMapCustomizeProps {
   situationColumn: string;
   adresseColumn: string;
   metrics: any;
+  usePie: boolean;
+  pieSize: number;
 }
 
 export type SupersetPluginChartBaiduMapQueryFormData = QueryFormData &
