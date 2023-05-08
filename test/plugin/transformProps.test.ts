@@ -39,6 +39,7 @@ describe('SupersetPluginChartBaiduMap transformProps', () => {
     latColumn: 'string',
     situationColumn: 'string',
     adresseColumn: 'string',
+    metrics: 'metrics',
   };
   const chartProps = new ChartProps({
     formData,
@@ -67,6 +68,7 @@ describe('SupersetPluginChartBaiduMap transformProps', () => {
       latColumn: 'string',
       situationColumn: 'string',
       adresseColumn: 'string',
+      metrics: 'metrics',
     });
   });
 });

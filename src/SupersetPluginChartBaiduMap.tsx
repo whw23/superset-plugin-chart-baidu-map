@@ -5,42 +5,15 @@ import 'echarts/extension/bmap/bmap';
 import { styled } from '@superset-ui/core';
 import { SupersetPluginChartBaiduMapProps } from './types';
 
-interface DataItem {
-  name: string;
-  value: number;
-}
-
-const testData: DataItem[] = [
-  { name: '海门', value: 9 },
-  { name: '鄂尔多斯', value: 12 }
-];
-const geoCoordMap: Record<string, number[]> = {
-  海门: [121.15, 31.89],
-  鄂尔多斯: [109.781327, 39.608266]
-};
-
-const convertTestData = function (data: DataItem[]) {
-  var res = [];
-  for (var i = 0; i < data.length; i++) {
-    var geoCoord = geoCoordMap[data[i].name];
-    if (geoCoord) {
-      res.push({
-        name: data[i].name,
-        value: geoCoord.concat(data[i].value)
-      });
-    }
-  }
+const convertData = (data: { [key: string]: any }[], site: string, lon: string, lat: string, adresseColumn: string, metrics: string[]) => {
+  var res = data.map((item) => ({
+    name: item[site],
+    value: [item[lon], item[lat], item[adresseColumn], ...metrics.map(metrics => item[metrics])]
+  }))
   return res;
 };
 
-const convertData = (data: { [key: string]: any }[], site: string, lon: string, lat: string) => {
-  return data.map((item) => ({
-    name: item[site],
-    value: [item[lon], item[lat]]
-  }));
-};
-
-const convertSymbol = function (useIcon: number, lienSvg: string, defaultIcon: string) {
+const convertSymbol = (useIcon: number, lienSvg: string, defaultIcon: string) => {
   if (useIcon === 1) {
     return defaultIcon
   } else if (useIcon === 2) {
@@ -64,7 +37,7 @@ export default function SupersetPluginChartBaiduMap(props: SupersetPluginChartBa
     enableZoom, initZoom,
     centerLon, centerLat,
     useIcon, lienSvg, symbolSize, defaultIcon, defaultIconColor,
-    data, lonColumn, latColumn, situationColumn,
+    data, lonColumn, latColumn, situationColumn, adresseColumn, metrics,
   } = props;
   const rootElem = createRef<HTMLDivElement>();
 
@@ -76,8 +49,7 @@ export default function SupersetPluginChartBaiduMap(props: SupersetPluginChartBa
   });
 
   console.log('Plugin props', props);
-  console.log('test data', convertTestData(testData));
-  console.log('data', convertData(data, situationColumn, lonColumn, latColumn))
+  console.log('data', convertData(data, situationColumn, lonColumn, latColumn, adresseColumn, metrics))
 
   const getOption = () => {
     return {
@@ -91,15 +63,17 @@ export default function SupersetPluginChartBaiduMap(props: SupersetPluginChartBa
           type: 'scatter',
           coordinateSystem: 'bmap',
           symbolSize: symbolSize,
-          data: convertData(data, situationColumn, lonColumn, latColumn),
+          data: convertData(data, situationColumn, lonColumn, latColumn, adresseColumn, metrics),
+          dimensions: [{ name: '经度' }, { name: '纬度' }, { name: '地址' }].concat(metrics),
           encode: {
-            value: 3
+            tooltip: ['经度', '纬度', '地址'].concat(metrics),
           },
           symbol: convertSymbol(useIcon, lienSvg, defaultIcon),
           color: (useIcon === 1) ? `rgba(${defaultIconColor.r},${defaultIconColor.g},${defaultIconColor.b},${defaultIconColor.a})` : '',
         }
       ],
       tooltip: {
+        trigger: 'item',
       },
     }
   }
