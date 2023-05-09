@@ -113,6 +113,7 @@ export default function SupersetPluginChartBaiduMap(props: SupersetPluginChartBa
       series: getSeries(),
       tooltip: {
         trigger: 'item',
+        appendToBody: true,
       },
       legend: {
         show: usePie,
