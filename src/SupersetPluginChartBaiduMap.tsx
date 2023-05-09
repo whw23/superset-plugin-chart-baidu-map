@@ -1,4 +1,4 @@
-import React, { useEffect, createRef } from "react"
+import React, { useEffect, createRef, useState } from "react"
 import ReactEcharts from "echarts-for-react"
 import echarts from "echarts";
 import 'echarts/extension/bmap/bmap';
@@ -41,17 +41,18 @@ export default function SupersetPluginChartBaiduMap(props: SupersetPluginChartBa
     usePie, pieSize,
   } = props;
   const rootElem = createRef<HTMLDivElement>();
+  const [showPie, setShowPie] = useState(usePie);
 
   // Often, you just want to access the DOM and do whatever you want.
   // Here, you can do that with createRef, and the useEffect hook.
-  useEffect(() => {
-    // const root = rootElem.current as HTMLElement;
-    // console.log('Plugin element', root);
-  });
+  // useEffect(() => {
+  //   const root = rootElem.current as HTMLElement;
+  //   console.log('Plugin element', root);
+  // });
 
-  console.log('Plugin props', props);
-  console.log('data', convertData(data, situationColumn, lonColumn, latColumn, adresseColumn, metrics))
-  console.log('data[i][metrics]', metrics.map((t: string) => (data[0][t])))
+  // console.log('Plugin props', props);
+  // console.log('data', convertData(data, situationColumn, lonColumn, latColumn, adresseColumn, metrics))
+  // console.log('data[i][metrics]', metrics.map((t: string) => (data[0][t])))
 
   function randomPieSeries(
     center: any,
@@ -73,7 +74,7 @@ export default function SupersetPluginChartBaiduMap(props: SupersetPluginChartBa
       labelLine: {
         show: false
       },
-      radius: [symbolSize / 2, usePie ? symbolSize / 2 + pieSize : symbolSize / 2],
+      radius: [symbolSize / 2, showPie ? symbolSize / 2 + pieSize : symbolSize / 2],
       center,
       data: data,
     };
@@ -81,7 +82,7 @@ export default function SupersetPluginChartBaiduMap(props: SupersetPluginChartBa
 
   function getSeries(): any {
     var res = []
-    if (usePie) {
+    if (showPie) {
       for (var i = 0; i < data.length; i++) {
         res.push(
           randomPieSeries([data[i][lonColumn], data[i][latColumn]], metrics.map((t: string) => (data[0][t])))
@@ -116,10 +117,14 @@ export default function SupersetPluginChartBaiduMap(props: SupersetPluginChartBa
         appendToBody: true,
       },
       legend: {
-        show: usePie,
+        show: showPie,
       },
     }
   }
+  
+  useEffect(() => {
+    setShowPie(usePie);
+  }, [usePie]);
 
   return (
     <Styles ref={rootElem} >

@@ -69,7 +69,7 @@ export default function transformProps(chartProps: ChartProps) {
   } = formData;
   const data = queriesData[0].data as TimeseriesDataRecord[];
 
-  console.log('formData via TransformProps.ts', formData);
+  // console.log('formData via TransformProps.ts', formData);
 
   return {
     width,
