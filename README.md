@@ -9,9 +9,7 @@ This is the Superset Plugin Chart Baidu Map Superset Chart Plugin.
 To build the plugin, run the following commands:
 
 ```
-mkdir /tmp/superset-plugin-chart-baidu-map
-cd /tmp/superset-plugin-chart-baidu-map
-git init
+cd /tmp
 git clone https://github.com/whw23/superset-plugin-chart-baidu-map.git
 npm ci
 npm run build
