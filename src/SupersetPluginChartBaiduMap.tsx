@@ -85,7 +85,7 @@ export default function SupersetPluginChartBaiduMap(props: SupersetPluginChartBa
     if (showPie) {
       for (var i = 0; i < data.length; i++) {
         res.push(
-          randomPieSeries([data[i][lonColumn], data[i][latColumn]], metrics.map((t: string) => (data[0][t])))
+          randomPieSeries([data[i][lonColumn], data[i][latColumn]], metrics.map((t: string) => (data[i][t])))
         );
       }
     }
