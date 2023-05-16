@@ -4,15 +4,7 @@ This is the Superset Plugin Chart Baidu Map Superset Chart Plugin.
 ### view
 ![picture](src/images/tmpview.png)
 ![picture](src/images/tmpview2.png)
-<iframe
-  width="600"
-  height="400"
-  seamless
-  frameBorder="0"
-  scrolling="no"
-  src="http://1.15.88.214:8088/superset/explore/p/qleAN7oNJm7/?standalone=1&height=400"
->
-</iframe>
+
 ### Usage
 
 To build the plugin, run the following commands:
