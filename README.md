@@ -1,6 +1,9 @@
 # superset-plugin-chart-baidu-map
 
 This is the Superset Plugin Chart Baidu Map Superset Chart Plugin.
+
+>经度、纬度、机构名称、地址、指标、默认图标颜色为必填项！！！
+>经度、纬度、机构名称、地址、指标、默认图标颜色 are required! ! !（Longitude, latitude, institution name, address, indicators, and default icon color are required! ! !）
 ### view
 ![picture](src/images/tmpview.png)
 ![picture](src/images/tmpview2.png)
