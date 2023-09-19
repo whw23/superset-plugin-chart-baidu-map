@@ -55,6 +55,9 @@ npm run build
 ```
 If you rebuild superset, please restart superset or restart the docker of your superset.
 
+经度、纬度、机构名称、地址、指标、默认图标颜色为必填项！！！
+经度、纬度、机构名称、地址、指标、默认图标颜色 are required! ! !（Longitude, latitude, institution name, address, indicators, and default icon color are required! ! !）
+
 ### baidu map api
 1. /app/superset/templates/tail_js_custom_extra.html\
 add
